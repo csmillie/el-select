@@ -1,0 +1,25 @@
+@mixin icon_chevron($size: 4px,
+    $color: #fff,
+    $up-class: "") {
+  &::after {
+    border: $size solid #000;
+    border-left-color: transparent;
+    border-radius: 1px;
+    border-top-color: transparent;
+    content: " ";
+    display: block;
+    margin-top: -$size - $size / 2;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: rotate(45deg);
+  }
+
+  @if $up-class != "" {
+    &.#{$up-class}:after {
+      margin-top: -$size + $size / 2;
+      transform: rotate(-135deg);
+    }
+  }
+}
+
