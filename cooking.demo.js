@@ -10,7 +10,7 @@ module.exports = {
     config.port = 8101;
     config.entry = { app: 'example/entry.js' };
     config.output.path = __dirname + '/example/build';
-    config.output.publicPath = process.argv[2] === 'build' ? 'el-select' : '';
+    config.output.publicPath = process.argv[2] === 'build' ? '/el-select' : '';
     config.devtool = false;
 
     // cooking 0.4.0 将重构配置文件结构，这部分代码应该写到 element-toolbox 工具里，但是

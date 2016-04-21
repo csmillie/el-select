@@ -296,7 +296,7 @@
     cursor: pointer;
     display: inline-block;
     outline: 0;
-    padding: 5px 0 5px 5px;
+    padding: 5px;
 
     &.element-select__input--hasvalue {
       color: #000;
