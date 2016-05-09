@@ -11,15 +11,15 @@
 
     data() {
       return {
-        select: [],
-        select2: [],
-        select3: [],
-        select4: [],
+        select: '',
+        select2: '',
+        select3: '',
+        select4: '',
         search4: '',
         select5: [],
         search5: '',
-        select6: [],
-        select7: [],
+        select6: '',
+        select7: ['', ''],
         cityData: []
       };
     },

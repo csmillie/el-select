@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		module.exports = factory(require("vue-clickoutside"));
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
+		define("ElSelect", ["vue-clickoutside"], factory);
+	else if(typeof exports === 'object')
+		exports["ElSelect"] = factory(require("vue-clickoutside"));
+	else
+		root["ElSelect"] = factory(root["vue-clickoutside"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_20__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -44,7 +44,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "/dist/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -56,18 +56,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var ElSelect = __webpack_require__(19);
-	var ElOption = __webpack_require__(18);
-	var ElOptionGroup = __webpack_require__(17);
+	var ElSelect = __webpack_require__(10);
+	var ElOption = __webpack_require__(9);
+	var ElOptionGroup = __webpack_require__(8);
 
 	module.exports = {
 	  ElSelect: ElSelect,
 	  ElOption: ElOption,
 	  ElOptionGroup: ElOptionGroup,
 	  install: function install(Vue) {
-	    Vue.component('el-select', ElSelect);
-	    Vue.component('el-option', ElOption);
-	    Vue.component('el-option-group', ElOptionGroup);
+	    Vue.component(ElSelect.name, ElSelect);
+	    Vue.component(ElOption.name, ElOption);
+	    Vue.component(ElOptionGroup.name, ElOptionGroup);
 	  }
 	};
 
@@ -79,7 +79,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(6);
+	var _defineProperty = __webpack_require__(17);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -104,20 +104,161 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
+	module.exports = "<div block=element-core-input :class=\"{\n    'is-disabled': disabled,\n    'is-readonly': readonly,\n    'is-multiple': multiple\n  }\"> <slot name=header></slot> <template v-if=multiple> <el-core-tag @remove=tags.$remove(tag) v-for=\"tag in tags\" :data=tag> </el-core-tag> </template> <input elem=original v-el:input v-model=model :type=\"type || 'text'\" :disabled=disabled :readonly=readonly :placeholder=placeholder :number=\"type === 'number'\" @blur=\"$dispatch('e-blur')\" @focus=handleFocus @keydown.down.prevent=\"$dispatch('e-press-down')\" @keydown.up.prevent=\"$dispatch('e-press-up')\" @keyup.enter=\"$dispatch('e-press-enter')\" @keydown.8=handleDelete @keydown.esc=\"$dispatch('e-press-esc')\"> <slot name=icon></slot> <slot name=footer></slot> </div>";
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = "<ul block=element-optiongroup :class=\"{ 'is-hastitle': title }\"> <li elem=title v-if=title v-show=!hideTitle v-text=title></li> <li elem=content v-show=!hideList> <slot></slot> </li> </ul>";
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = "<li block=element-option :class=\"{\n    'is-disabled': disabled,\n    'is-selected': selected,\n    'is-hover': hit\n  }\" @mouseup=handleClick> <span v-text=label></span> <span v-text=remark elem=remark> </span> </li>";
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = "<div block=element-select :class=\"{ 'is-search': searchModel }\" v-element-clickoutside=\"showDropdown = false\"> <el-core-input v-if=\"type !== 'multiple'\" :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :model.sync=model :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <el-core-input v-else :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :tags=model :model.sync=searchModel :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <span slot=icon elem=chevron :class=\"{ 'is-up': active }\"> </span> <ul v-show=active block=element-dropdown> <el-core-input elem=search v-if=\"type === 'search'\" :placeholder=searchPlaceholder :model.sync=searchModel @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel> </el-core-input> <div elem=option v-el:option-wrap> <slot></slot> <div elem=empty v-show=empty>无搜索结果</div> </div> </ul> </div>";
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = "<button block=element-core-tag> <span v-text=data></span> <span elem=button v-if=_events.remove @click.stop=\"$dispatch('remove')\">&times;</span> </button>";
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(12)
+	__vue_template__ = __webpack_require__(2)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(13)
+	__vue_template__ = __webpack_require__(3)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(14)
+	__vue_template__ = __webpack_require__(4)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(15)
+	__vue_template__ = __webpack_require__(5)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(16)
+	__vue_template__ = __webpack_require__(6)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	// <script>
-	/**
-	  * option-group
-	  * @module components/special/option-group
-	  * @desc option 分组
-	  * @oaram {boolean} [hideTitle=false] - 隐藏标题
-	  * @param {boolean} [hide-list=false] - 隐藏结果
-	  * @param {string} [title] - 分组标题
-	  */
+
+	var _tag = __webpack_require__(11);
+
+	var _tag2 = _interopRequireDefault(_tag);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	  name: 'ElCoreInput',
+
+	  components: {
+	    ElCoreTag: _tag2.default
+	  },
+
+	  props: {
+	    placeholder: String,
+	    disabled: Boolean,
+	    readonly: Boolean,
+	    multiple: Boolean,
+	    tags: Array,
+	    model: [String, null],
+	    type: String
+	  },
+
+	  methods: {
+	    handleFocus: function handleFocus() {
+	      if (!this.readonly) {
+	        this.$els.input.select();
+	      }
+	      this.$dispatch('e-focus');
+	    },
+	    handleDelete: function handleDelete() {
+	      if (this.model.trim().length !== 0) {
+	        return;
+	      }
+
+	      this.$dispatch('e-press-delete');
+	    }
+	  }
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = {
 	  name: 'el-option-group',
 	  props: {
@@ -136,47 +277,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	};
-	// </script>
-	//
-	// <template>
-	//   <ul
-	//     class="element-optiongroup"
-	//     :class="{ 'element-optiongroup--hastitle': title }">
-	//     <li
-	//       class="element-optiongroup__title"
-	//       v-if="title"
-	//       v-show="!hideTitle"
-	//       v-text="title"></li>
-	//       <li class="element-optiongroup__content" v-show="!hideList">
-	//         <slot></slot>
-	//       </li>
-	//   </ul>
-	// </template>
-	//
-	// <style lang="scss">
-	//   .element-optiongroup {
-	//     list-style: none;
-	//     padding-left: 0;
-	//     background-color: #fff;
-	//   }
-	//
-	//   .element-optiongroup__title {
-	//     box-sizing: border-box;
-	//     color: #ccc;
-	//     display: inline-block;
-	//     font-size: 12px;
-	//     padding: 8px;
-	//
-	//     &:hover {
-	//       background-color: inherit;
-	//     }
-	//   }
-	// </style>
-
-	/* generated by vue-loader */
 
 /***/ },
-/* 3 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -189,26 +292,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+	var _events;
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// <template>
-	//   <li
-	//     class="element-option"
-	//     :class="{
-	//       'element-dropdown__option--disabled': disabled,
-	//       'element-dropdown__option--selected': selected,
-	//       'element-dropdown__option--hover': hit
-	//     }"
-	//     @mouseup="handleClick">
-	//     <span v-text="label"></span>
-	//     <span
-	//       v-text="remark"
-	//       class="element-option__remark">
-	//     </span>
-	//   </li>
-	// </template>
-	//
-	// <script>
 	exports.default = {
 	  name: 'ElOption',
 
@@ -219,20 +306,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      required: true,
 	      type: String
 	    },
-	    remark: String,
-	    model: {
-	      default: function _default() {
-	        return [];
-	      },
-
-	      required: true,
-	      toWay: true
-	    }
+	    remark: String
 	  },
 
 	  created: function created() {
 	    this.label = this.label || this.value;
-
 	    this.$dispatch('element.option.created', this);
 	  },
 	  beforeDestroy: function beforeDestroy() {
@@ -240,23 +318,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  data: function data() {
 	    return {
-	      hit: false
+	      hit: false,
+	      selected: false
 	    };
 	  },
 
 
-	  events: (0, _defineProperty3.default)({}, 'element.select.current', function elementSelectCurrent(component) {
+	  events: (_events = {}, (0, _defineProperty3.default)(_events, 'element.select.current', function elementSelectCurrent(component) {
 	    this.hit = component.value === this.value;
-	  }),
-
-	  computed: {
-	    selected: function selected() {
-	      if (Array.isArray(this.model)) {
-	        return this.model.indexOf(this.value) > -1;
-	      }
-	      return this.model === this.value;
+	  }), (0, _defineProperty3.default)(_events, 'element.select.selected', function elementSelectSelected(model) {
+	    if (Array.isArray(model)) {
+	      this.selected = model.indexOf(this.value) > -1;
+	    } else {
+	      this.selected = model === this.value;
 	    }
-	  },
+	  }), _events),
 
 	  methods: {
 	    handleClick: function handleClick() {
@@ -268,142 +344,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	};
-	// </script>
-	//
-	// <style lang="scss">
-	//   @import "src/styles/_dropdown";
-	//   @import "src/styles/_utils";
-	//
-	//   .element-option {
-	//     @include dropdown-option(
-	//       'element-dropdown__option--selected',
-	//       'element-dropdown__option--disabled',
-	//       'element-dropdown__option--hover');
-	//     @include clearfix;
-	//   }
-	//
-	//   .element-option__remark {
-	//     color: #ccc;
-	//     float: right;
-	//   }
-	// </style>
-	/* generated by vue-loader */
 
 /***/ },
-/* 4 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
 	var _defineProperty2 = __webpack_require__(1);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _events; // <template>
-	//   <div
-	//     class="element-select"
-	//     :class="{'element-select--input': searchModel}"
-	//     v-clickoutside="show = false">
-	//       <div
-	//         @click="show = true"
-	//         class="element-select__input"
-	//         :class="{
-	//           'element-select__input--disabled': disabled,
-	//           'element-select__input--active': active,
-	//           'element-select__input--tag': type === 'multiple' }">
-	//
-	//         <input
-	//           v-if="type === 'normal' || type === 'search'"
-	//           :placeholder="placeholder"
-	//           :value="model"
-	//           @keydown.down.prevent="fetchOption('next')"
-	//           @keydown.up.prevent="fetchOption('prev')"
-	//           @keyup.enter="updateModel"
-	//           class="element-select__span"
-	//           readonly
-	//           :class="{ 'element-select__input--hasvalue': model }">
-	//         <span
-	//           v-if="type === 'input'"
-	//           v-text="model"
-	//           v-show="model"
-	//           :class="{ 'element-select__input--hasvalue': model }"
-	//           class="element-select__span">
-	//         </span>
-	//         <el-tag
-	//           v-if="type === 'multiple'"
-	//           v-for="tag in model"
-	//           @remove="model.$remove(tag)"
-	//           :data="tag">
-	//         </el-tag>
-	//         <input
-	//           v-if="type === 'input' || type === 'multiple'"
-	//           v-el:input
-	//           type="text"
-	//           :placeholder="model ?  '' : placeholder"
-	//           v-model="searchModel"
-	//           @keydown.down.prevent="fetchOption('next')"
-	//           @keydown.up.prevent="fetchOption('prev')"
-	//           @keyup.enter="updateModel"
-	//           @keydown.8="removeLastTag"
-	//           class="element-select__original element-select__original--inline"
-	//           :disabled="disabled">
-	//
-	//         <span
-	//           v-if="type !== 'input'"
-	//           class="element-select__chevron"
-	//           :class="{
-	//             'element-select__chevron--up': active
-	//           }"></span>
-	//       </div>
-	//
-	//       <ul
-	//         v-show="active"
-	//         class="element-select__dropdown">
-	//         <div
-	//           v-if="type === 'search'"
-	//           class="element-search">
-	//           <input
-	//             v-el:input
-	//             @keydown.down.prevent="fetchOption('next')"
-	//             @keydown.up.prevent="fetchOption('prev')"
-	//             @keyup.enter="updateModel"
-	//             type="search"
-	//             class="element-search__input"
-	//             v-model="searchModel"
-	//             :placeholder="searchPlaceholder">
-	//         </div>
-	//         <div
-	//           class="element-select__options"
-	//           data-empty="无搜索结果"
-	//           v-el:option-wrap
-	//           ><slot></slot></div>
-	//       </ul>
-	//   </div>
-	// </template>
-	//
-	// <script>
+	var _events;
 
+	var _input = __webpack_require__(7);
 
-	var _tag = __webpack_require__(20);
-
-	var _tag2 = _interopRequireDefault(_tag);
+	var _input2 = _interopRequireDefault(_input);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = {
+	module.exports = {
 	  name: 'ElSelect',
 
 	  props: {
 	    placeholder: String,
+	    hintPlaceholder: String,
 	    type: {
 	      type: String,
 	      default: 'normal',
 	      validator: function validator(value) {
-	        return ['input', 'multiple', 'normal', 'search'].indexOf(value) > -1;
+	        return ['multiple', 'normal', 'search'].indexOf(value) > -1;
 	      }
 	    },
 	    disabled: Boolean,
@@ -425,36 +395,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 
-	  directives: {
-	    clickoutside: __webpack_require__(21)
-	  },
-
 	  created: function created() {
 	    this.originalOptions = [];
-	    this.currentOptions = [];
 	  },
 
 
 	  computed: {
 	    active: function active() {
-	      return !this.disabled && this.show;
+	      return !this.disabled && this.showDropdown;
+	    },
+	    dislayPlaceholder: function dislayPlaceholder() {
+	      var placeholder = this.model.length ? '' : this.placeholder;
+	      if (this.focus) {
+	        return this.hintPlaceholder || placeholder;
+	      }
+	      return placeholder;
+	    },
+	    empty: function empty() {
+	      return this.currentOptions.length <= 0;
+	    },
+	    searchBoxHeight: function searchBoxHeight() {
+	      return this.type === 'search' ? 30 : 0;
 	    }
 	  },
 
 	  components: {
-	    ElTag: _tag2.default
+	    ElCoreInput: _input2.default
+	  },
+
+	  directives: {
+	    ElementClickoutside: __webpack_require__(20)
 	  },
 
 	  data: function data() {
 	    return {
-	      show: false,
-	      current: ''
+	      showDropdown: false,
+	      current: '',
+	      focus: false,
+	      currentOptions: []
 	    };
 	  },
 
 
 	  watch: {
-	    show: function show(sure) {
+	    showDropdown: function showDropdown(sure) {
 	      if (!sure) {
 	        this.searchModel = '';
 	        return;
@@ -476,7 +460,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        this.current = null;
 	      }
-	      this.show = true;
+	      this.showDropdown = true;
 	    },
 	    current: function current(component) {
 	      if (!component) {
@@ -486,11 +470,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.$broadcast('element.select.current', this.current);
 
 	      if (component.$el) {
-	        this.$els.optionWrap.scrollTop = component.$el.offsetTop;
+	        this.$els.optionWrap.scrollTop = component.$el.offsetTop - this.searchBoxHeight;
 	      }
 	    },
 	    model: function model(value) {
 	      this.$dispatch('change', value);
+	      this.$broadcast('element.select.selected', value);
 	    }
 	  },
 
@@ -538,7 +523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
-	      this.show = true;
+	      this.showDropdown = true;
 
 	      var result = this.currentOptions.find(function (option) {
 	        return option.value === _this.current.value;
@@ -549,7 +534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return;
 	      }
 	    },
-	    removeLastTag: function removeLastTag() {
+	    removeTag: function removeTag() {
 	      if (this.searchModel.trim().length !== 0) {
 	        return;
 	      }
@@ -568,7 +553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      if (this.type !== 'multiple') {
-	        this.show = false;
+	        this.showDropdown = false;
 	        this.model = this.current.value;
 	        return;
 	      }
@@ -581,225 +566,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	};
-	// </script>
-	//
-	// <style lang="scss">
-	//   @import "src/styles/_input";
-	//   @import "src/styles/_icons";
-	//   @import "src/styles/_dropdown";
-	//
-	//   .element-select {
-	//     position: relative;
-	//     display: inline-block;
-	//   }
-	//
-	//   .element-select__span {
-	//     background-color: transparent;
-	//     border: none;
-	//     color: #ccc;
-	//     cursor: pointer;
-	//     display: inline-block;
-	//     outline: 0;
-	//     padding: 5px 0 5px 5px;
-	//
-	//     &.element-select__input--hasvalue {
-	//       color: #000;
-	//     }
-	//   }
-	//
-	//   .element-select--input {
-	//     .element-dropdown {
-	//       width: auto;
-	//       overflow: auto;
-	//
-	//       .element-tabset__content {
-	//         padding: 0;
-	//         height: auto;
-	//         overflow: visible;
-	//       }
-	//
-	//       .element-tabset {
-	//         .element-optiongroup__title {
-	//           float: none;
-	//         }
-	//
-	//         .tab {
-	//           /* 覆盖掉原先 tab 可点击显示的样式 */
-	//           display: block!important;
-	//         }
-	//       }
-	//
-	//       .element-optiongroup__content {
-	//         display: block;
-	//       }
-	//
-	//       .element-option {
-	//         display: block;
-	//         text-align: left;
-	//
-	//         &.element-dropdown__option--hover {
-	//           border-left: 1px solid #ccc;
-	//         }
-	//       }
-	//
-	//       .element-option__remark {
-	//         display: inline-block;
-	//       }
-	//     }
-	//
-	//     .element-tabset__header {
-	//       display: none;
-	//     }
-	//   }
-	//
-	//   .element-select__input {
-	//     border: 1px solid;
-	//
-	//     @include input(
-	//       "element-select__original",
-	//       "element-select__input--active",
-	//       "element-select__input--disabled"
-	//     );
-	//     padding-right: 20px;
-	//     width: 100%;
-	//   }
-	//
-	//   .element-select__original {
-	//     margin-right: -20px;
-	//
-	//     &.element-select__original--inline {
-	//       display: inline-block;
-	//       width: auto;
-	//     }
-	//   }
-	//
-	//   .element-select__input--tag {
-	//     padding-left: 4px;
-	//   }
-	//
-	//   .element-select__chevron {
-	//     @include icon_chevron(
-	//       4px,
-	//       #ccc,
-	//       "element-select__chevron--up");
-	//   }
-	//
-	//   .element-select__dropdown {
-	//     @include dropdown;
-	//   }
-	//
-	//   .element-search {
-	//     @include input("element-search__input");
-	//     border-left: 0;
-	//     border-right: 0;
-	//     border-top: 0;
-	//     border-radius: 0;
-	//     display: block;
-	//   }
-	//
-	//   .element-select__options {
-	//     max-height: 250px;
-	//     overflow: auto;
-	//
-	//     &:after {
-	//       color: #ccc;
-	//       content: attr(data-empty);
-	//       display: none;
-	//       font-size: 12px;
-	//       padding: 4px;
-	//       text-align: center;
-	//     }
-	//
-	//     &:empty:after {
-	//       display: block;
-	//       background-color: #fff;
-	//     }
-	//   }
-	// </style>
-
-	/* generated by vue-loader */
 
 /***/ },
-/* 5 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	// <script>
-	/**
-	 * tag
-	 * @module components/basic/tag
-	 * @desc 标签组件，监听删除事件时会显示删除按钮
-	 * @example
-	 * <el-tag data="hello"></el-tag>
-	 * <el-tag @remove="// TODO" data="world"></el-tag>
-	 */
 	module.exports = {
-	  name: 'el-tag',
+	  name: 'ElCoreTag',
 
 	  props: {
-	    data: String
+	    data: [String, Number]
 	  }
 	};
-	// </script>
-	//
-	// <template>
-	//   <span class="element-tag">
-	//     {{ data }}
-	//     <span
-	//       class="element-tag__close"
-	//       v-if="_events.remove"
-	//       @click.stop="$dispatch('remove')">&times;</span>
-	//   </span>
-	// </template>
-	//
-	// <style lang="scss">
-	//   .element-tag {
-	//     background-color: #ddd;
-	//     border-radius: 3px;
-	//     box-sizing: border-box;
-	//     color: #000;
-	//     display: inline-block;
-	//     height: 22px;
-	//     margin-bottom: 2px;
-	//     margin-right: 2px;
-	//     padding: 3px;
-	//     vertical-align: middle;
-	//     position: relative;
-	//     padding-right: 16px;
-	//     font-size: 12px;
-	//   }
-	//
-	//   .element-tag__close {
-	//     color: #333;
-	//     cursor: pointer;
-	//     /* 增大可点击面积 */
-	//     padding: 10px 10px 10px 20px;
-	//     position: absolute;
-	//     right: -6px;
-	//     top: -6px;
-	//   }
-	// </style>
-
-	/* generated by vue-loader */
 
 /***/ },
-/* 6 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(7), __esModule: true };
+	module.exports = { "default": __webpack_require__(18), __esModule: true };
 
 /***/ },
-/* 7 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(8);
+	var $ = __webpack_require__(19);
 	module.exports = function defineProperty(it, key, desc){
 	  return $.setDesc(it, key, desc);
 	};
 
 /***/ },
-/* 8 */
+/* 19 */
 /***/ function(module, exports) {
 
 	var $Object = Object;
@@ -817,156 +615,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = "<ul class=element-optiongroup :class=\"{ 'element-optiongroup--hastitle': title }\"> <li class=element-optiongroup__title v-if=title v-show=!hideTitle v-text=title></li> <li class=element-optiongroup__content v-show=!hideList> <slot></slot> </li> </ul>";
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = "<li class=element-option :class=\"{ 'element-dropdown__option--disabled': disabled, 'element-dropdown__option--selected': selected, 'element-dropdown__option--hover': hit }\" @mouseup=handleClick> <span v-text=label></span> <span v-text=remark class=element-option__remark> </span> </li>";
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=element-select :class=\"{'element-select--input': searchModel}\" v-clickoutside=\"show = false\"> <div @click=\"show = true\" class=element-select__input :class=\"{ 'element-select__input--disabled': disabled, 'element-select__input--active': active, 'element-select__input--tag': type === 'multiple' }\"> <input v-if=\"type === 'normal' || type === 'search'\" :placeholder=placeholder :value=model @keydown.down.prevent=\"fetchOption('next')\" @keydown.up.prevent=\"fetchOption('prev')\" @keyup.enter=updateModel class=element-select__span readonly=readonly :class=\"{ 'element-select__input--hasvalue': model }\"> <span v-if=\"type === 'input'\" v-text=model v-show=model :class=\"{ 'element-select__input--hasvalue': model }\" class=element-select__span> </span> <el-tag v-if=\"type === 'multiple'\" v-for=\"tag in model\" @remove=model.$remove(tag) :data=tag> </el-tag> <input v-if=\"type === 'input' || type === 'multiple'\" v-el:input type=text :placeholder=\"model ?  '' : placeholder\" v-model=searchModel @keydown.down.prevent=\"fetchOption('next')\" @keydown.up.prevent=\"fetchOption('prev')\" @keyup.enter=updateModel @keydown.8=removeLastTag class=\"element-select__original element-select__original--inline\" :disabled=disabled> <span v-if=\"type !== 'input'\" class=element-select__chevron :class=\"{ 'element-select__chevron--up': active }\"></span> </div> <ul v-show=active class=element-select__dropdown> <div v-if=\"type === 'search'\" class=element-search> <input v-el:input @keydown.down.prevent=\"fetchOption('next')\" @keydown.up.prevent=\"fetchOption('prev')\" @keyup.enter=updateModel type=search class=element-search__input v-model=searchModel :placeholder=searchPlaceholder> </div> <div class=element-select__options data-empty=无搜索结果 v-el:option-wrap><slot></slot></div> </ul> </div>";
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	module.exports = "<span class=element-tag> {{ data }} <span class=element-tag__close v-if=_events.remove @click.stop=\"$dispatch('remove')\">&times;</span> </span>";
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(9)
-	__vue_script__ = __webpack_require__(2)
-	__vue_template__ = __webpack_require__(13)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(10)
-	__vue_script__ = __webpack_require__(3)
-	__vue_template__ = __webpack_require__(14)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(11)
-	__vue_script__ = __webpack_require__(4)
-	__vue_template__ = __webpack_require__(15)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-
-
-/***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var __vue_script__, __vue_template__
-	__webpack_require__(12)
-	__vue_script__ = __webpack_require__(5)
-	__vue_template__ = __webpack_require__(16)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	(function (global, factory) {
-	   true ? module.exports = factory() :
-	  typeof define === 'function' && define.amd ? define(factory) :
-	  (global.VueClickOutside = factory());
-	}(this, function () { 'use strict';
-
-	  /**
-	   * v-clickoutside
-	   * @desc 点击元素外面才会触发的事件
-	   * @example
-	   * ```vue
-	   * <div v-element-clickoutside="show = false">
-	   * ```
-	   */
-	  var index = {
-	    bind: function bind() {
-	      var _this = this;
-
-	      this.handler = function (e) {
-	        if (_this.vm && !_this.el.contains(e.target)) {
-	          _this.vm.$eval(_this.expression);
-	        }
-	      };
-	      document.addEventListener('click', this.handler);
-	    },
-	    unbind: function unbind() {
-	      document.removeEventListener('click', this.handler);
-	    },
-	    install: function install(Vue) {
-	      Vue.directive('clickoutside', {
-	        bind: this.bind,
-	        unbind: this.unbind
-	      });
-	    }
-	  };
-
-	  return index;
-
-	}));
+	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 
 /***/ }
 /******/ ])

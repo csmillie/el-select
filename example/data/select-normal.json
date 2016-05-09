@@ -1,32 +1,32 @@
 [
   {
-    "label": "label1",
-    "value": "选择了第一个",
-    "pinyin": "pinyin1"
+    "label": "选项1",
+    "value": "结果1",
+    "remark": "remark1"
   },
   {
-    "label": "label2",
-    "value": "选择了第二个",
-    "pinyin": "pinyin2"
+    "label": "选项2",
+    "value": "结果2",
+    "remark": "remark2"
   },
   {
-    "label": "label3",
-    "value": "选择了第三个",
-    "pinyin": "pinyin3"
+    "label": "选项3",
+    "value": "结果3",
+    "remark": "remark3"
   },
   {
-    "label": "label4",
-    "value": "啊啊啊啊",
-    "pinyin": "pinyin4"
+    "label": "选项4",
+    "value": "结果4",
+    "remark": "remark4"
   },
   {
-    "label": "label5",
-    "value": "第五个",
-    "pinyin": "pinyin5"
+    "label": "选项5",
+    "value": "结果5",
+    "remark": "remark5"
   },
   {
-    "label": "label6",
-    "value": "第六个",
-    "pinyin": "pinyin6"
+    "label": "选项6",
+    "value": "结果6",
+    "remark": "remark6"
   }
 ]

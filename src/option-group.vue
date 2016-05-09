@@ -29,35 +29,15 @@
 
 <template>
   <ul
-    class="element-optiongroup"
-    :class="{ 'element-optiongroup--hastitle': title }">
+    block="element-optiongroup"
+    :class="{ 'is-hastitle': title }">
     <li
-      class="element-optiongroup__title"
+      elem="title"
       v-if="title"
       v-show="!hideTitle"
       v-text="title"></li>
-      <li class="element-optiongroup__content" v-show="!hideList">
+      <li elem="content" v-show="!hideList">
         <slot></slot>
       </li>
   </ul>
 </template>
-
-<style lang="scss">
-  .element-optiongroup {
-    list-style: none;
-    padding-left: 0;
-    background-color: #fff;
-  }
-
-  .element-optiongroup__title {
-    box-sizing: border-box;
-    color: #ccc;
-    display: inline-block;
-    font-size: 12px;
-    padding: 8px;
-
-    &:hover {
-      background-color: inherit;
-    }
-  }
-</style>

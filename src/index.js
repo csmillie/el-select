@@ -7,8 +7,8 @@ module.exports = {
   ElOption,
   ElOptionGroup,
   install(Vue) {
-    Vue.component('el-select', ElSelect);
-    Vue.component('el-option', ElOption);
-    Vue.component('el-option-group', ElOptionGroup);
+    Vue.component(ElSelect.name, ElSelect);
+    Vue.component(ElOption.name, ElOption);
+    Vue.component(ElOptionGroup.name, ElOptionGroup);
   }
 };

@@ -1,19 +1,19 @@
 [
   {
-    "label": "label1",
-    "value": "value1"
+    "label": "选项1",
+    "value": "结果1"
   },
   {
-    "label": "label2",
-    "value": "value2",
+    "label": "选项2",
+    "value": "结果2",
     "disabled": true
   },
   {
-    "label": "label3",
-    "value": "value3"
+    "label": "选项3",
+    "value": "结果3"
   },
   {
-    "label": "label4",
-    "value": "value4"
+    "label": "选项4",
+    "value": "结果4"
   }
 ]

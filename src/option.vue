@@ -1,16 +1,16 @@
 <template>
   <li
-    class="element-option"
+    block="element-option"
     :class="{
-      'element-dropdown__option--disabled': disabled,
-      'element-dropdown__option--selected': selected,
-      'element-dropdown__option--hover': hit
+      'is-disabled': disabled,
+      'is-selected': selected,
+      'is-hover': hit
     }"
     @mouseup="handleClick">
     <span v-text="label"></span>
     <span
       v-text="remark"
-      class="element-option__remark">
+      elem="remark">
     </span>
   </li>
 </template>
@@ -26,19 +26,11 @@
         required: true,
         type: String
       },
-      remark: String,
-      model: {
-        default() {
-          return [];
-        },
-        required: true,
-        toWay: true
-      }
+      remark: String
     },
 
     created() {
       this.label = this.label || this.value;
-
       this.$dispatch('element.option.created', this);
     },
 
@@ -48,22 +40,22 @@
 
     data() {
       return {
-        hit: false
+        hit: false,
+        selected: false
       };
     },
 
     events: {
       ['element.select.current'](component) {
         this.hit = component.value === this.value;
-      }
-    },
+      },
 
-    computed: {
-      selected() {
-        if (Array.isArray(this.model)) {
-          return this.model.indexOf(this.value) > -1;
+      ['element.select.selected'](model) {
+        if (Array.isArray(model)) {
+          this.selected = model.indexOf(this.value) > -1;
+        } else {
+          this.selected = model === this.value;
         }
-        return this.model === this.value;
       }
     },
 
@@ -78,21 +70,3 @@
     }
   };
 </script>
-
-<style lang="scss">
-  @import "src/styles/_dropdown";
-  @import "src/styles/_utils";
-
-  .element-option {
-    @include dropdown-option(
-      'element-dropdown__option--selected',
-      'element-dropdown__option--disabled',
-      'element-dropdown__option--hover');
-    @include clearfix;
-  }
-
-  .element-option__remark {
-    color: #ccc;
-    float: right;
-  }
-</style>

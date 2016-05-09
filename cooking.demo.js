@@ -1,49 +1,45 @@
-var toolbox = require.resolve('element-toolbox');
+var path = require('path');
+var cooking = require('cooking');
+var templatePath = './example/index.dev.html';
 
-module.exports = {
-  use: 'vue',
-
-  webpack: function (provide, config) {
-    var HtmlWebpackPlugin = provide.HtmlWebpackPlugin;
-
-    config.nodeServer = true;
-    config.port = 8101;
-    config.entry = { app: 'example/entry.js' };
-    config.output.path = __dirname + '/example/build';
-    config.output.publicPath = process.argv[2] === 'build' ? '/el-select' : '';
-    config.devtool = false;
-
-    // cooking 0.4.0 将重构配置文件结构，这部分代码应该写到 element-toolbox 工具里，但是
-    // 那样没法修改该配置文件，临时措施
-    config.resolveLoader = config.resolveLoader || {};
-    config.resolveLoader.root = [
-      toolbox + '/../node_modules/'
-    ];
-
-    config.module.loaders.push({
-      test: /\.md$/,
-      loader: 'vue-html!highlight!markdown'
-    });
-
-    var template;
-
-    if (process.argv[2] === 'build') {
-      template = 'example/index.html';
-      config.externals = {
-        'vue': 'Vue'
-      };
-    } else {
-      template = 'example/index.dev.html';
-    }
-
-    config.plugins = (config.plugins || []).concat([
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: template,
-        inject: true
-      })
-    ]);
-
-    return config;
-  }
+var registerPostHTMLPlugin = function () {
+  return {
+    defaults: [
+      require(path.join(process.env.ELEMENT_TOOLBOX, 'posthtml-bem'))(),
+    ]
+  };
 };
+
+if (process.env.NODE_ENV === 'production') {
+  templatePath = './example/index.html';
+}
+
+cooking.set({
+  use: 'vue',
+  entry: './example/entry.js',
+  dist: './example/build',
+  template: templatePath,
+  devServer: {
+    port: 8101,
+    publicPath: '/'
+  },
+  publicPath: '/el-select/',
+  extends: ['vue', 'lint']
+});
+
+cooking.add('loader.md', {
+  test: /\.md$/,
+  loaders: ['vue-html-loader', 'highlight-loader', 'markdown-loader']
+});
+cooking.add('resolveLoader.root', [process.env.ELEMENT_TOOLBOX]);
+cooking.add('posthtml', registerPostHTMLPlugin);
+cooking.add('vue.autoprefixer', false);
+cooking.add('vue.loaders.html', 'vue-html-loader!posthtml-loader');
+
+if (process.env.NODE_ENV === 'production') {
+  cooking.add('externals', {
+    vue: 'vue',
+    vue: 'Vue'
+  });
+}
+module.exports = cooking.resolve();
