@@ -22,9 +22,7 @@
   },
   "homepage": "https://github.com/element-component/el-select#readme",
   "devDependencies": {
-    "vue-clickoutside": "0.0.4"
-  },
-  "dependencies": {
-    "el-input": "file:///Users/liqingwei/Documents/projects/element-component/el-input"
+    "vue-clickoutside": "0.0.4",
+    "el-input": "^0.1.0"
   }
 }
