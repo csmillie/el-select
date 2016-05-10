@@ -170,31 +170,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div block=element-core-input :class=\"{\n    'is-disabled': disabled,\n    'is-readonly': readonly,\n    'is-multiple': multiple\n  }\"> <template v-if=multiple> <el-core-tag @remove=tags.$remove(tag) v-for=\"tag in tags\" :data=tag> </el-core-tag> </template> <input elem=original v-el:input v-model=model :type=\"type || 'text'\" :disabled=disabled :readonly=readonly :placeholder=placeholder :number=\"type === 'number'\" @blur=\"$dispatch('e-blur')\" @focus=handleFocus @keydown.down.prevent=\"$dispatch('e-press-down')\" @keydown.up.prevent=\"$dispatch('e-press-up')\" @keyup.enter=\"$dispatch('e-press-enter')\" @keydown.8=handleDelete @keydown.esc=\"$dispatch('e-press-esc')\"> <slot name=icon></slot> </div>";
+	module.exports = "<div :class=\"{\n    'is-disabled': disabled,\n    'is-readonly': readonly,\n    'is-multiple': multiple\n  }\" class=element-core-input> <template v-if=multiple> <el-core-tag @remove=tags.$remove(tag) v-for=\"tag in tags\" :data=tag> </el-core-tag> </template> <input v-el:input=\"\" v-model=model :type=\"type || 'text'\" :disabled=disabled :readonly=readonly :placeholder=placeholder :number=\"type === 'number'\" @blur=\"$dispatch('e-blur')\" @focus=handleFocus @keydown.down.prevent=\"$dispatch('e-press-down')\" @keydown.up.prevent=\"$dispatch('e-press-up')\" @keyup.enter=\"$dispatch('e-press-enter')\" @keydown.8=handleDelete @keydown.esc=\"$dispatch('e-press-esc')\" class=element-core-input__original> <slot name=icon></slot> </div>";
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<button block=element-core-tag> <span v-text=data></span> <span elem=button v-if=_events.remove @click.stop=\"$dispatch('remove')\">&times;</span> </button>";
+	module.exports = "<button class=element-core-tag> <span v-text=data></span> <span v-if=_events.remove @click.stop=\"$dispatch('remove')\" class=element-core-tag__button>&times;</span> </button>";
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<ul block=element-optiongroup :class=\"{ 'is-hastitle': title }\"> <li elem=title v-if=title v-show=!hideTitle v-text=title></li> <li elem=content v-show=!hideList> <slot></slot> </li> </ul>";
+	module.exports = "<ul :class=\"{ 'is-hastitle': title }\" class=element-optiongroup> <li v-if=title v-show=!hideTitle v-text=title class=element-optiongroup__title></li> <li v-show=!hideList class=element-optiongroup__content> <slot></slot> </li> </ul>";
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<li block=element-option :class=\"{\n    'is-disabled': disabled,\n    'is-selected': selected,\n    'is-hover': hit\n  }\" @mouseup=handleClick> <span v-text=label></span> <span v-text=remark elem=remark> </span> </li>";
+	module.exports = "<li :class=\"{\n    'is-disabled': disabled,\n    'is-selected': selected,\n    'is-hover': hit\n  }\" @mouseup=handleClick class=element-option> <span v-text=label></span> <span v-text=remark class=element-option__remark> </span> </li>";
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<div block=element-select :class=\"{ 'is-search': searchModel }\" v-element-clickoutside=\"showDropdown = false\"> <el-core-input v-if=\"type !== 'multiple'\" :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :model.sync=model :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <el-core-input v-else :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :tags=model :model.sync=searchModel :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <span slot=icon elem=chevron :class=\"{ 'is-up': active }\"> </span> <ul v-show=active block=element-dropdown> <el-core-input elem=search v-if=\"type === 'search'\" :placeholder=searchPlaceholder :model.sync=searchModel @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel> </el-core-input> <div elem=option v-el:option-wrap> <slot></slot> <div elem=empty v-show=empty>无搜索结果</div> </div> </ul> </div>";
+	module.exports = "<div :class=\"{ 'is-search': searchModel }\" v-element-clickoutside=\"showDropdown = false\" class=element-select> <el-core-input v-if=\"type !== 'multiple'\" :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :model.sync=model :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <el-core-input v-else=\"\" :class=\"{ 'is-active': active }\" @click=\"showDropdown = !showDropdown\" :placeholder=dislayPlaceholder :tags=model :model.sync=searchModel :disabled=disabled @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel @e-press-delete=removeTag :multiple=\"type === 'multiple'\" :readonly=\"type !== 'multiple'\"> </el-core-input> <span slot=icon :class=\"{ 'is-up': active }\" class=element-select__chevron> </span> <ul v-show=active class=element-dropdown> <el-core-input v-if=\"type === 'search'\" :placeholder=searchPlaceholder :model.sync=searchModel @e-press-down=\"fetchOption('next')\" @e-press-up=\"fetchOption('prev')\" @e-press-enter=updateModel class=element-dropdown__search> </el-core-input> <div v-el:option-wrap=\"\" class=element-dropdown__option> <slot></slot> <div v-show=empty class=element-dropdown__empty>无搜索结果</div> </div> </ul> </div>";
 
 /***/ },
 /* 13 */

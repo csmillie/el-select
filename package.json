@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/element-component/el-select#readme",
   "devDependencies": {
-    "vue-clickoutside": "0.0.4",
-    "el-input": "^0.1.0"
+    "el-input": "^0.1.1",
+    "vue-clickoutside": "0.0.4"
   }
 }
