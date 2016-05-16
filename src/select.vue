@@ -1,7 +1,7 @@
 <template>
   <div
     block="element-select"
-    :class="{ 'is-search': searchModel }"
+    :class="{ 'is-search': searchModel || model }"
     v-element-clickoutside="showDropdown = false">
     <el-core-input
       v-if="type !== 'multiple'"
@@ -15,7 +15,7 @@
       @e-press-enter="updateModel"
       @e-press-delete="removeTag"
       :multiple="type === 'multiple'"
-      :readonly="type !== 'multiple'">
+      :readonly="type !== 'multiple' && type !== 'input'">
     </el-core-input>
 
     <el-core-input
@@ -31,7 +31,7 @@
       @e-press-enter="updateModel"
       @e-press-delete="removeTag"
       :multiple="type === 'multiple'"
-      :readonly="type !== 'multiple'">
+      :readonly="type !== 'multiple' && type !== 'input'">
     </el-core-input>
 
     <span
@@ -89,7 +89,8 @@
           return [
             'multiple',
             'normal',
-            'search'
+            'search',
+            'input'
           ].indexOf(value) > -1;
         }
       },
